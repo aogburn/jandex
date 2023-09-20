@@ -461,6 +461,9 @@ public final class AnnotationInstance {
     @Override
     public int hashCode() {
         int result = name.hashCode();
+        if (target != null && target instanceof MethodInfo)
+            if (((MethodInfo) target).declaringClass() != null)
+                result = 31 * result + ((MethodInfo) target).declaringClass().name().hashCode();
         result = 31 * result + Arrays.hashCode(values);
 
         return result;
